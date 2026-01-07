@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Swiss Transport Departures</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🚂 Swiss Transport Departures</h1>
+            <p>Track departures from your favorite stations</p>
+        </header>
+
+        <div class="station-config">
+            <h2>Add Station</h2>
+            <div class="add-station-form">
+                <input
+                    type="text"
+                    id="stationSearch"
+                    placeholder="Search for a station (e.g., Zürich HB, Bern)"
+                    autocomplete="off"
+                >
+                <div id="searchResults" class="search-results"></div>
+                <button id="addStationBtn" disabled>Add Station</button>
+            </div>
+        </div>
+
+        <div class="stations-list">
+            <h2>Your Stations</h2>
+            <div id="stationsList" class="stations-container">
+                <p class="empty-state">No stations added yet. Search and add a station above.</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,475 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    padding: 20px;
+}
+
+body.kiosk-mode {
+    background: #1a1a1a;
+    padding: 0;
+    margin: 0;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+header {
+    text-align: center;
+    color: white;
+    margin-bottom: 40px;
+}
+
+header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+header p {
+    font-size: 1.1rem;
+    opacity: 0.9;
+}
+
+.station-config {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    margin-bottom: 30px;
+}
+
+.station-config h2 {
+    color: #333;
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+}
+
+.add-station-form {
+    position: relative;
+}
+
+#stationSearch {
+    width: 100%;
+    padding: 15px;
+    font-size: 1rem;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+#stationSearch:focus {
+    border-color: #667eea;
+}
+
+.search-results {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    margin-top: 5px;
+    max-height: 300px;
+    overflow-y: auto;
+    z-index: 100;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    display: none;
+}
+
+.search-results.show {
+    display: block;
+}
+
+.search-result-item {
+    padding: 12px 15px;
+    cursor: pointer;
+    border-bottom: 1px solid #f0f0f0;
+    transition: background-color 0.2s;
+}
+
+.search-result-item:hover {
+    background-color: #f5f5f5;
+}
+
+.search-result-item:last-child {
+    border-bottom: none;
+}
+
+.station-name {
+    font-weight: 600;
+    color: #333;
+}
+
+.station-location {
+    font-size: 0.85rem;
+    color: #666;
+    margin-top: 2px;
+}
+
+#addStationBtn {
+    width: 100%;
+    padding: 15px;
+    margin-top: 15px;
+    font-size: 1rem;
+    font-weight: 600;
+    background: #667eea;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#addStationBtn:hover:not(:disabled) {
+    background: #5568d3;
+}
+
+#addStationBtn:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+}
+
+.stations-list h2 {
+    color: white;
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+}
+
+.stations-container {
+    display: grid;
+    gap: 20px;
+}
+
+.kiosk-mode .stations-container {
+    gap: 0;
+}
+
+.empty-state {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 40px;
+    text-align: center;
+    color: #666;
+    border-radius: 12px;
+    font-size: 1.1rem;
+}
+
+.station-card {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.station-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #f0f0f0;
+}
+
+.station-title {
+    font-size: 1.5rem;
+    color: #333;
+    font-weight: 700;
+}
+
+.remove-btn {
+    background: #ff4757;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.3s;
+}
+
+.remove-btn:hover {
+    background: #ff3838;
+}
+
+.departures {
+    list-style: none;
+}
+
+.departure-item {
+    display: grid;
+    grid-template-columns: 60px 1fr 80px;
+    gap: 15px;
+    padding: 15px;
+    border-bottom: 1px solid #f0f0f0;
+    align-items: center;
+}
+
+.departure-item:last-child {
+    border-bottom: none;
+}
+
+.departure-time {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #667eea;
+}
+
+.departure-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.departure-destination {
+    font-weight: 600;
+    color: #333;
+    font-size: 1rem;
+}
+
+.departure-line {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.line-badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: white;
+    background: #333;
+}
+
+.departure-category {
+    font-size: 0.85rem;
+    color: #666;
+}
+
+.departure-platform {
+    text-align: right;
+    font-size: 0.9rem;
+}
+
+.platform-label {
+    color: #666;
+    font-size: 0.75rem;
+    display: block;
+}
+
+.platform-number {
+    font-weight: 700;
+    color: #333;
+    font-size: 1.2rem;
+}
+
+.loading {
+    text-align: center;
+    padding: 20px;
+    color: #666;
+    font-style: italic;
+}
+
+.error {
+    background: #fee;
+    color: #c33;
+    padding: 15px;
+    border-radius: 8px;
+    margin: 10px 0;
+}
+
+.refresh-info {
+    text-align: center;
+    color: #666;
+    font-size: 0.85rem;
+    margin-top: 10px;
+    font-style: italic;
+}
+
+/* Kiosk Mode / Station Board Styles */
+.kiosk-mode .container {
+    max-width: 100%;
+    padding: 0;
+}
+
+.kiosk-mode .station-card {
+    border-radius: 0;
+    background: #1a1a1a;
+    box-shadow: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.station-board-header {
+    background: #2a2a2a;
+    color: #e0e0e0;
+    padding: 15px 20px;
+    text-align: center;
+    border-bottom: 2px solid #404040;
+}
+
+.station-board-title {
+    font-size: 1.8rem;
+    font-weight: 900;
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.board-header {
+    display: grid;
+    grid-template-columns: 80px 120px 1fr 90px;
+    gap: 15px;
+    background: #252525;
+    padding: 10px 20px;
+    border-bottom: 1px solid #404040;
+}
+
+.board-header-item {
+    color: #999;
+    font-weight: 700;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.board-departures {
+    flex: 1;
+    overflow-y: auto;
+    background: #1a1a1a;
+}
+
+.board-item {
+    display: grid;
+    grid-template-columns: 80px 120px 1fr 90px;
+    gap: 15px;
+    padding: 12px 20px;
+    border-bottom: 1px solid #2a2a2a;
+    align-items: center;
+    transition: background 0.2s;
+}
+
+.board-item:hover {
+    background: #252525;
+}
+
+.board-time {
+    font-size: 1.5rem;
+    font-weight: 900;
+    color: #e0e0e0;
+    font-family: 'Courier New', monospace;
+    letter-spacing: 1px;
+}
+
+.board-train {
+    font-size: 1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.transport-train {
+    color: #7cb342; /* Green for trains (fallback for non-S-Bahn) */
+}
+
+.transport-bus {
+    color: #7FC6E1; /* Light blue for buses */
+}
+
+.transport-tram {
+    color: #42a5f5; /* Blue for trams (fallback) */
+}
+
+.board-destination {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #e0e0e0;
+}
+
+.board-platform {
+    font-size: 1.5rem;
+    font-weight: 900;
+    color: #8ab4f8;
+    text-align: center;
+    font-family: 'Courier New', monospace;
+}
+
+.delay {
+    color: #ef5350;
+    font-weight: 700;
+    margin-left: 8px;
+    font-size: 0.9em;
+}
+
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 1.8rem;
+    }
+
+    .departure-item {
+        grid-template-columns: 50px 1fr 60px;
+        gap: 10px;
+        padding: 12px;
+    }
+
+    .departure-time {
+        font-size: 1.1rem;
+    }
+
+    .departure-destination {
+        font-size: 0.9rem;
+    }
+
+    /* Kiosk mode responsive */
+    .station-board-title {
+        font-size: 1.3rem;
+    }
+
+    .board-header {
+        grid-template-columns: 60px 80px 1fr 70px;
+        gap: 8px;
+        padding: 8px 10px;
+    }
+
+    .board-header-item {
+        font-size: 0.7rem;
+    }
+
+    .board-item {
+        grid-template-columns: 60px 80px 1fr 70px;
+        gap: 8px;
+        padding: 10px 10px;
+    }
+
+    .board-time {
+        font-size: 1rem;
+    }
+
+    .board-train {
+        font-size: 0.8rem;
+    }
+
+    .board-destination {
+        font-size: 0.9rem;
+    }
+
+    .board-platform {
+        font-size: 1rem;
+    }
+
+    .delay {
+        font-size: 0.75em;
+        margin-left: 4px;
+    }
+}
