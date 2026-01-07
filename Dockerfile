@@ -5,9 +5,12 @@ RUN addgroup -g 1001 -S appuser && \
     adduser -u 1001 -S appuser -G appuser
 
 # Create necessary directories and set permissions
-RUN mkdir -p /usr/share/nginx/html /var/cache/nginx /var/run && \
-    chown -R appuser:appuser /usr/share/nginx/html /var/cache/nginx /var/run && \
+RUN mkdir -p /usr/share/nginx/html /var/cache/nginx /var/log/nginx && \
+    chown -R appuser:appuser /usr/share/nginx/html /var/cache/nginx /var/log/nginx && \
     chmod -R 755 /usr/share/nginx/html
+
+# Copy custom nginx configuration
+COPY --chown=appuser:appuser nginx.conf /etc/nginx/nginx.conf
 
 # Copy application files
 COPY --chown=appuser:appuser index.html /usr/share/nginx/html/
@@ -18,12 +21,6 @@ COPY --chown=appuser:appuser style.css /usr/share/nginx/html/
 # Copy entrypoint script
 COPY --chown=appuser:appuser docker-entrypoint.sh /docker-entrypoint.sh
 RUN chmod +x /docker-entrypoint.sh
-
-# Configure nginx to run as non-root
-RUN sed -i 's/listen\s*80;/listen 8080;/' /etc/nginx/conf.d/default.conf && \
-    sed -i '/user  nginx;/d' /etc/nginx/nginx.conf && \
-    sed -i 's,/var/run/nginx.pid,/var/run/nginx.pid,' /etc/nginx/nginx.conf && \
-    chown -R appuser:appuser /var/cache/nginx /var/run /etc/nginx
 
 # Switch to non-root user
 USER appuser
