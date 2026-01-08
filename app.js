@@ -194,9 +194,8 @@ function renderDepartures(departures, containerId) {
         const platform = dep.stop.platform || '-';
 
         // Calculate delay
-        const delay = dep.stop.delay || 0;
-        const delayMinutes = Math.floor(delay / 60);
-        const delayHTML = delayMinutes > 0 ? `<span class="delay">(+${delayMinutes} min)</span>` : '';
+        const delayMinutes = dep.stop.delay || 0;
+        const delayHTML = delayMinutes > 0 ? `<span class="delay">+${delayMinutes}&nbsp;min</span>` : '';
 
         // Determine transport type and color
         let transportClass = 'train'; // default
